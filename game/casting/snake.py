@@ -16,6 +16,9 @@ class Snake(Actor):
         super().__init__()
         self._segments = []
         self._prepare_body()
+        
+    def get_snake(self):
+        return self._snake
 
     def get_segments(self):
         return self._segments
