@@ -1,6 +1,5 @@
 from game.casting.actor import Actor
 
-
 class Score(Actor):
     """
     A record of points made or lost. 
@@ -30,9 +29,6 @@ class Score(Actor):
     def __init__(self):
         game.init()
         game.display.set_caption("Codebasics Snake And Apple Game")
-
-        game.mixer.init()
-        self.play_background_music()
 
         self.surface = game.display.set_mode((1000, 800))
         self.actor = Actor(self.surface)
@@ -74,7 +70,6 @@ class Score(Actor):
 
         # snake colliding with the boundries of the window
         if not (0 <= self.snake.x[0] <= 1000 and 0 <= self.snake.y[0] <= 800):
-            self.play_sound('crash')
             raise "Hit the boundry error"
 
     def display_score(self):
