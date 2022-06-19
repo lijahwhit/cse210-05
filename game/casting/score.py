@@ -65,7 +65,6 @@ class Score(Actor):
         # snake colliding with itself
         for i in range(3, self.snake.length):
             if self.is_collision(self.snake.x[0], self.snake.y[0], self.snake.x[i], self.snake.y[i]):
-                self.play_sound('crash')
                 raise "Collision Occurred"
 
         # snake colliding with the boundries of the window
@@ -84,7 +83,6 @@ class Score(Actor):
         self.surface.blit(line1, (200, 300))
         line2 = font.render("To play again press Enter. To exit press Escape!", True, (255, 255, 255))
         self.surface.blit(line2, (200, 350))
-        game.mixer.music.pause()
         game.display.flip()
 
     def run(self):
