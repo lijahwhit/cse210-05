@@ -28,7 +28,7 @@ class Score(Actor):
   class Game:
     def __init__(self):
         game.init()
-        game.display.set_caption("Codebasics Snake And Apple Game")
+        game.display.set_caption("Codebasics Snake And food")
 
         self.surface = game.display.set_mode((1000, 800))
         self.actor = Actor(self.surface)
