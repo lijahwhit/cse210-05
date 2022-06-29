@@ -73,6 +73,22 @@ class Cycle(Actor):
         self._is_dead = False
         self._segments.clear()
         self._prepare_body(self._player)
+        
+    def _clear_cycles(self):
+        self._is_dead = False
+        self._segments.clear()
+        self._prepare_empty(self._player)
+        
+    def _prepare_empty(self, player):
+       
+        if player == "first":
+            for i in range(constants.CYCLE_LENGTH):
+                segment = Actor()
+                self._segments.append(segment)
+        else:
+            for i in range(constants.CYCLE_LENGTH):
+                segment = Actor()
+                self._segments.append(segment)        
 
     def _prepare_body(self, player):
 
@@ -82,7 +98,7 @@ class Cycle(Actor):
             for i in range(constants.CYCLE_LENGTH):
                 position = Point(x, y + i * constants.CELL_SIZE)
                 velocity = Point(0, -1 * constants.CELL_SIZE)
-                text = "*" if i == 0 else "#"
+                text = "*"
                 color = constants.RED if i == 0 else constants.GREEN
                 segment = Actor()
                 segment.set_position(position)
@@ -96,7 +112,7 @@ class Cycle(Actor):
             for i in range(constants.CYCLE_LENGTH):
                 position = Point(x, y - i * constants.CELL_SIZE)
                 velocity = Point(0, 1 * constants.CELL_SIZE)
-                text = "@" if i == 0 else "$"
+                text = "@"
                 color = constants.GREEN if i == 0 else constants.RED
                 segment = Actor()
                 segment.set_position(position)

@@ -1,7 +1,6 @@
 import constants
 from game.casting.actor import Actor
 from game.scripting.action import Action
-from game.casting.cycle import Cycle
 from game.shared.point import Point
 
 
@@ -22,6 +21,7 @@ class HandleCollisionsAction(Action):
         self._keyboard_service = keyboard_service
 
         self._is_game_over = False
+        
         self._who_won = ""
         self._segments = []
 
@@ -112,6 +112,12 @@ class HandleCollisionsAction(Action):
             message.set_text(f"Game Over!\n {self._who_won.capitalize()} player won the game.\n\n Press 'Y' to play again! ")
             message.set_position(position)
             cast.add_actor("messages", message)
+        
+            cycles = cast.get_actors("cycles")
+            for cycle in cycles:
+                cycle._clear_cycles()
+            
+ 
                                     
 
             scores = cast.get_actors("scores")

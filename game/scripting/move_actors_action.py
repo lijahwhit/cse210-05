@@ -1,6 +1,4 @@
-import constants
 from game.scripting.action import Action
-from game.shared.point import Point
 
 
 class MoveActorsAction(Action):
@@ -10,7 +8,8 @@ class MoveActorsAction(Action):
     The responsibility of MoveActorsAction is to move all the actors that have a velocity greater
     than zero.
     """
-
+    
+   
     def execute(self, cast, script):
         """Executes the move actors action.
 
@@ -18,10 +17,14 @@ class MoveActorsAction(Action):
             cast (Cast): The cast of Actors in the game.
             script (Script): The script of Actions in the game.
         """
+        
+        
         actors = cast.get_all_actors()
         for actor in actors:
             actor.move_next()
-                
-        cycles = cast.get_actors("cycles")    
+        
+            
+        cycles = cast.get_actors("cycles") 
         for cycle in cycles:
             cycle.grow_tail(1)
+                
