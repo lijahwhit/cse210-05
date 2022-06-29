@@ -15,13 +15,13 @@ class ControlActorsAction(Action):
 
     def __init__(self, keyboard_service):
         """Constructs a new ControlActorsAction using the specified KeyboardService.
-        
+
         Args:
             keyboard_service (KeyboardService): An instance of KeyboardService.
         """
         self._keyboard_service = keyboard_service
-        self._snake_1_direction = Point(constants.CELL_SIZE, 0)
-        self._snake_2_direction = Point(constants.CELL_SIZE, 0)
+        self._first_player_direction = Point(0, -constants.CELL_SIZE)
+        self._second_player_direction = Point(0, constants.CELL_SIZE)
 
     def execute(self, cast, script):
         """Executes the control actors action.
@@ -30,44 +30,47 @@ class ControlActorsAction(Action):
             cast (Cast): The cast of Actors in the game.
             script (Script): The script of Actions in the game.
         """
-        # left
+        p1_key_pressed = False
+
         if self._keyboard_service.is_key_down('a'):
-            self._snake_1_direction = Point(-constants.CELL_SIZE, 0)
-        
-        # right
+            self._first_player_direction = Point(-constants.CELL_SIZE, 0)
+            p1_key_pressed = True
+
         if self._keyboard_service.is_key_down('d'):
-            self._snake_1_direction = Point(constants.CELL_SIZE, 0)
-        
-        # up
+            self._first_player_direction = Point(constants.CELL_SIZE, 0)
+            p1_key_pressed = True
+
         if self._keyboard_service.is_key_down('w'):
-            self._snake_1_direction = Point(0, -constants.CELL_SIZE)
-        
-        # down
+            self._first_player_direction = Point(0, -constants.CELL_SIZE)
+            p1_key_pressed = True
+
         if self._keyboard_service.is_key_down('s'):
-            self._snake_1_direction = Point(0, constants.CELL_SIZE)
-        
-        
-        
-        # left
+            self._first_player_direction = Point(0, constants.CELL_SIZE)
+            p1_key_pressed = True
+
+        p2_key_pressed = False
+
         if self._keyboard_service.is_key_down('j'):
-            self._snake_2_direction = Point(-constants.CELL_SIZE, 0)
-        
-        # right
+            self._second_player_direction = Point(-constants.CELL_SIZE, 0)
+            p2_key_pressed = True
+
         if self._keyboard_service.is_key_down('l'):
-            self._snake_2_direction = Point(constants.CELL_SIZE, 0)
-        
-        # up
+            self._second_player_direction = Point(constants.CELL_SIZE, 0)
+            p2_key_pressed = True
+
         if self._keyboard_service.is_key_down('i'):
-            self._snake_2_direction = Point(0, -constants.CELL_SIZE)
-        
-        # down
+            self._second_player_direction = Point(0, -constants.CELL_SIZE)
+            p2_key_pressed = True
+
         if self._keyboard_service.is_key_down('k'):
-            self._snake_2_direction = Point(0, constants.CELL_SIZE)
-        
-        
-        
-        snake1 = cast.get_actors("snake1")
-        snake2 = cast.get_actors("snake2")
-        
-        snake1.turn_head(self._snake_1_direction)
-        snake2.turn_head(self._snake_2_direction)
+            self._second_player_direction = Point(0, constants.CELL_SIZE)
+            p2_key_pressed = True
+
+        cycles = cast.get_actors("cycles")
+        for cycle in cycles:
+            if cycle.get_player() == "first":
+                if p1_key_pressed:
+                    cycle.turn_head(self._first_player_direction)
+            if cycle.get_player() == "second":
+                if p2_key_pressed:
+                    cycle.turn_head(self._second_player_direction)
