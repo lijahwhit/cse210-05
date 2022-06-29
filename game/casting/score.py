@@ -38,7 +38,7 @@ class Score(Actor):
 
         if self._player == "second":
             self.set_position(
-                Point(constants.MAX_X - 8 * constants.CELL_SIZE, constants.CELL_SIZE))
+                Point(constants.MAX_X - 100 * constants.CELL_SIZE, constants.CELL_SIZE))
 
     def add_points(self, points):
         """Adds the given points to the score's total points.

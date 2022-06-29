@@ -1,4 +1,6 @@
+import constants
 from game.scripting.action import Action
+from game.shared.point import Point
 
 
 class MoveActorsAction(Action):
@@ -19,3 +21,7 @@ class MoveActorsAction(Action):
         actors = cast.get_all_actors()
         for actor in actors:
             actor.move_next()
+                
+        cycles = cast.get_actors("cycles")    
+        for cycle in cycles:
+            cycle.grow_tail(1)

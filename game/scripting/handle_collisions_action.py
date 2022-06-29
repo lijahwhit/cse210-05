@@ -1,6 +1,7 @@
 import constants
 from game.casting.actor import Actor
 from game.scripting.action import Action
+from game.casting.cycle import Cycle
 from game.shared.point import Point
 
 
@@ -22,6 +23,7 @@ class HandleCollisionsAction(Action):
 
         self._is_game_over = False
         self._who_won = ""
+        self._segments = []
 
     def execute(self, cast, script):
         """Executes the handle collisions action.
@@ -102,24 +104,15 @@ class HandleCollisionsAction(Action):
         """
         if self._is_game_over:
 
-            cycles = cast.get_actors("cycles")
-
             x = int(constants.MAX_X / 2)
-            y = int(constants.MAX_Y / 2)
+            y = int(constants.MAX_Y / 2 - 100)
             position = Point(x, y)
 
             message = Actor()
             message.set_text(f"Game Over!\n {self._who_won.capitalize()} player won the game.\n\n Press 'Y' to play again! ")
             message.set_position(position)
             cast.add_actor("messages", message)
-
-            for cycle in cycles:
-                cycle.set_is_dead(True)
-                segments = cycle.get_segments()
-
-                for index, segment in enumerate(segments):
-                    if index != 1:
-                        segment.set_color(constants.WHITE)
+                                    
 
             scores = cast.get_actors("scores")
             for score in scores:
